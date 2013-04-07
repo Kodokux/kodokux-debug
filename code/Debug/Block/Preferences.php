@@ -1,6 +1,8 @@
 <?php
+
 class Magneto_Debug_Block_Preferences extends Magneto_Debug_Block_Abstract
 {
+
     public function getPanels()
     {
         /* @var $debugBlock Magneto_Debug_Block_Debug */

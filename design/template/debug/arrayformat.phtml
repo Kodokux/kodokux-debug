@@ -13,19 +13,19 @@
         <table class="djSqlExplain">
             <thead>
                 <tr>
-                    <?php foreach( $headers as $header ): ?>
+                    <?php foreach ($headers as $header): ?>
                         <th><?php echo htmlspecialchars($header); ?></th>
                     <?php endforeach; ?>
                 </tr>
             </thead>
             <tbody>
-               <?php $row=0; ?>
-               <?php foreach( $items as $row ): ?>
-                <tr class="<?php echo ( ($row % 2 ? 'djDebugOdd' : 'djDebugEven')) ?>">
-                    <?php foreach( $row as $key => $value ): ?>
-                        <td><?php echo htmlspecialchars($value); ?></td>
-                    <?php endforeach; ?>
-                </tr>
+                <?php $row = 0; ?>
+                <?php foreach ($items as $row): ?>
+                    <tr class="<?php echo ( ($row % 2 ? 'djDebugOdd' : 'djDebugEven')) ?>">
+                        <?php foreach ($row as $key => $value): ?>
+                            <td><?php echo htmlspecialchars($value); ?></td>
+                        <?php endforeach; ?>
+                    </tr>
                 <?php endforeach; ?>
             </tbody>
         </table>

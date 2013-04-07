@@ -8,11 +8,11 @@
 
         <table class="djSqlExplain">
             <tbody>
-               <?php $row=0; ?>
-               <?php foreach( $items as $index => $row ): ?>
-                <tr class="<?php echo ( ($index % 2 ? 'djDebugOdd' : 'djDebugEven')) ?>">
-                    <td><?php echo $row; ?></td>
-                </tr>
+                <?php $row = 0; ?>
+                <?php foreach ($items as $index => $row): ?>
+                    <tr class="<?php echo ( ($index % 2 ? 'djDebugOdd' : 'djDebugEven')) ?>">
+                        <td><?php echo $row; ?></td>
+                    </tr>
                 <?php endforeach; ?>
             </tbody>
         </table>

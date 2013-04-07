@@ -1,10 +1,11 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <config>
     <modules>
         <Magneto_Debug>
             <version>1.1.0</version>
         </Magneto_Debug>
     </modules>
+    
     <frontend>
         <routers>
             <debug>
@@ -34,29 +35,34 @@
             </updates>
         </layout>
     </frontend>
+    
     <global>
         <models>
             <debug>
                 <class>Magneto_Debug_Model</class>
             </debug>
         </models>
+        
         <resources>
             <debug_write>
                 <connection>
                     <use>core_write</use>
                 </connection>
             </debug_write>
+            
             <debug_read>
                 <connection>
                     <use>core_read</use>
                 </connection>
             </debug_read>
         </resources>
+        
         <blocks>
             <debug>
                 <class>Magneto_Debug_Block</class>
             </debug>
         </blocks>
+        
         <helpers>
             <debug>
                 <class>Magneto_Debug_Helper</class>
@@ -184,6 +190,7 @@
                             <title>Debug Toolbar</title>
                             <sort_order>10</sort_order>
                         </debug>
+                        
                         <system>
                             <children>
                                 <config>
@@ -197,6 +204,7 @@
                 </admin>
             </resources>
         </acl>
+        
         <layout>
             <updates>
                 <debugadmin>
@@ -205,7 +213,7 @@
             </updates>
         </layout>
         
-         <translate>
+        <translate>
             <modules>
                 <magneto_debug>
                     <files>
