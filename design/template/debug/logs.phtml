@@ -1,3 +1,4 @@
+<?php /* @var $this Magneto_Debug_Block_Translate */ ?>
 <h4><?php echo $this->__('View content of logs file'); ?></h4>
 
 <a class="remoteCall toggleTemplate" href="<?php echo Mage::getUrl('debug/index/viewLog', array('file' => Mage::getStoreConfig('dev/log/file'))); ?>">
@@ -5,4 +6,60 @@
 </a>
 <a class="remoteCall toggleTemplate" href="<?php echo Mage::getUrl('debug/index/viewLog', array('file' => Mage::getStoreConfig('dev/log/exception_file'))); ?>">
     <?php echo Mage::getStoreConfig('dev/log/exception_file'); ?>
-</a>F
+</a>
+
+<h4><?php echo $this->__('Translate'); ?></h4>
+
+<form class="form-horizontal">
+    <fieldset>
+        <div class="control-group">
+            <!-- Select Basic -->
+            <label class="control-label">Local</label>
+            <div class="controls">
+                <select id="traducao-local" class="input-xlarge">
+                    <option value="0"><?php echo $this->__('Selecione...'); ?></option>
+                    <?php foreach ($this->getLocal() as $item): ?>
+                        <option value="<?php echo $item; ?>"><?php echo $item; ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <!-- Select Basic -->
+            <label class="control-label"><?php echo $this->__('Namespace'); ?></label>
+            <div class="controls">
+                <select id="traducao-namespace" class="input-xlarge">
+                    <option value="0"><?php echo $this->__('Selecione um Local'); ?></option>
+                </select>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <!-- Select Basic -->
+            <label class="control-label"><?php echo $this->__('Módulo'); ?></label>
+            <div class="controls">
+                <select id="traducao-modulo" class="input-xlarge">
+                    <option value="0"><?php echo $this->__('Selecione um Namespace'); ?></option>
+                </select>
+            </div>
+        </div>
+
+        <label class="control-label" for="input01"><?php echo $this->__('Incluir Linguagens'); ?></label>
+        <div class="controls">
+            <input id="traducao-linguagem" placeholder="pt_BR, ja_JP" class="input-xlarge" type="text">
+            <p class="help-block"><?php echo $this->__('Insira as linguagens separando por vírgula'); ?></p>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label"></label>
+
+            <!-- Button -->
+            <div class="controls">
+                <button id="traducao-executar" class="btn btn-default"><?php echo $this->__('Executar'); ?></button>
+            </div>
+        </div>
+        
+        <div id="traducao-mensagens"></div>
+    </fieldset>
+</form>

@@ -513,4 +513,35 @@ class Magneto_Debug_IndexController extends Mage_Core_Controller_Front_Action
         }
     }
 
+    public function translateGetNamespaceAction()
+    {
+        $local = $this->getRequest()->getParam('local');
+
+        $bloco = Mage::getBlockSingleton('debug/translate');
+
+        echo json_encode($bloco->getNamespaces($local));
+    }
+
+    public function translateGetModulesAction()
+    {
+        $local = $this->getRequest()->getParam('local');
+        $namespace = $this->getRequest()->getParam('namespace');
+
+        $bloco = Mage::getBlockSingleton('debug/translate');
+
+        echo json_encode($bloco->getModules($local, $namespace));
+    }
+
+    public function translateExecutarAction()
+    {
+        $local = $this->getRequest()->getParam('local');
+        $namespace = $this->getRequest()->getParam('namespace');
+        $modulo = $this->getRequest()->getParam('modulo');
+        $linguagem = $this->getRequest()->getParam('linguagem');
+
+        $bloco = Mage::getBlockSingleton('debug/translate');
+
+        echo $bloco->executar($local, $namespace, $modulo, $linguagem);
+    }
+
 }
