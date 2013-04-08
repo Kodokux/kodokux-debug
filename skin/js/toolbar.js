@@ -134,7 +134,7 @@
             $('#traducao-local').change(function() {
                 if ($(this).val() !== '0') {
                     $('#debug-panel-Logs').append('<div class="loader"></div>');
-                    $.getJSON('debug/index/translateGetNamespace', {
+                    $.getJSON(BASE_URL + 'debug/index/translateGetNamespace', {
                         local: $(this).val()
                     }, function(data) {
                         $('#traducao-namespace').empty().append('<option value="0">Selecione...</option>');
@@ -150,7 +150,7 @@
                 if ($(this).val() !== '0') {
                     $('#debug-panel-Logs').append('<div class="loader"></div>');
 
-                    $.getJSON('debug/index/translateGetModules', {
+                    $.getJSON(BASE_URL + 'debug/index/translateGetModules', {
                         local: $('#traducao-local').val(),
                         namespace: $(this).val()
                     }, function(data) {
@@ -170,7 +170,7 @@
                 t.attr('disabled', 'disabled').html('Executando Aguarde...');
                 $('#debug-panel-Logs').append('<div class="loader"></div>');
 
-                $.getJSON('debug/index/translateExecutar', {
+                $.getJSON(BASE_URL + 'debug/index/translateExecutar', {
                     executar: true,
                     local: $('#traducao-local').val(),
                     namespace: $('#traducao-namespace').val(),
@@ -178,7 +178,7 @@
                     linguagem: $('#traducao-linguagem').val()
                 }, function(data) {
                     t.attr('disabled', false).html('Executar');
-                    
+
                     $('#traducao-mensagens').html(data.data);
                     $('#debug-panel-Logs .loader').remove();
 
