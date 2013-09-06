@@ -81,7 +81,7 @@ $designPackage = Mage::getSingleton('core/design_package');
             <tr class="<?php echo ( ($row % 2 ? 'djDebugOdd' : 'djDebugEven')) ?>">
                 <td><?php echo $row ?>.</td>
                 <td class="syntax">
-                    <code><?php echo htmlspecialchars($item) ?></code>
+                    <pre><code><?php echo htmlspecialchars($item) ?></code></pre>
                 </td>
             </tr>
             <?php $row ++; ?>

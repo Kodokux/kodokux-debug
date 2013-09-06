@@ -116,6 +116,17 @@
                             <show_in_store>1</show_in_store>
                             <sort_order>8</sort_order>
                         </debug_panel_logs_visibility>
+
+                        <debug_panel_translate_visibility>
+                            <label>Show Translate Panel</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>9</sort_order>
+                        </debug_panel_translate_visibility>
                     </fields>
                 </options>
             </groups>

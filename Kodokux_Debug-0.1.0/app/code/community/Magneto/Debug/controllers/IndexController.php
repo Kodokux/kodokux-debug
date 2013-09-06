@@ -106,8 +106,8 @@ class Magneto_Debug_IndexController extends Mage_Core_Controller_Front_Action
         $designArea = $this->getRequest()->getParam('area');
 
         $title = $this->__("Files with layout updates for handle ") . $layoutHandle;
-        if ( ! $layoutHandle) {
-            
+        if (!$layoutHandle) {
+
         }
 
         $updateFiles = Mage::helper('debug')->getLayoutUpdatesFiles($storeId, $designArea);
@@ -125,13 +125,13 @@ class Magneto_Debug_IndexController extends Mage_Core_Controller_Front_Action
                 '_package' => $designPackage->getPackageName(),
                 '_theme' => $designPackage->getTheme('layout')
             ));
-            if ( ! is_readable($filename)) {
+            if (!is_readable($filename)) {
                 continue;
             }
             $fileStr = file_get_contents($filename);
 
             $fileXml = simplexml_load_string($fileStr, Mage::getConfig()->getModelClassName('core/layout_element'));
-            if ( ! $fileXml instanceof SimpleXMLElement) {
+            if (!$fileXml instanceof SimpleXMLElement) {
                 continue;
             }
 
@@ -239,7 +239,7 @@ class Magneto_Debug_IndexController extends Mage_Core_Controller_Front_Action
         $forStore = $this->getRequest()->getParam('store', 1);
 
         $currentStatus = Mage::getStoreConfig('dev/translate_inline/active', $forStore);
-        $newStatus = ! $currentStatus;
+        $newStatus = !$currentStatus;
 
         $config = Mage::app()->getConfig();
         $config->saveConfig('dev/translate_inline/active', $newStatus, 'stores', $forStore);
@@ -247,7 +247,7 @@ class Magneto_Debug_IndexController extends Mage_Core_Controller_Front_Action
 
         // Toggle translate cache too
         $allTypes = Mage::app()->useCache();
-        $allTypes['translate'] = ! $newStatus; // Cache off when translate is on
+        $allTypes['translate'] = !$newStatus; // Cache off when translate is on
         Mage::app()->saveUseCache($allTypes);
 
         // clear cache
@@ -267,7 +267,7 @@ class Magneto_Debug_IndexController extends Mage_Core_Controller_Front_Action
         $forStore = $this->getRequest()->getParam('store', 1);
 
         $currentStatus = Mage::app()->getStore($forStore)->getConfig('dev/debug/template_hints');
-        $newStatus = ! $currentStatus;
+        $newStatus = !$currentStatus;
 
         $config = Mage::getModel('core/config');
         $config->saveConfig('dev/debug/template_hints', $newStatus, 'stores', $forStore);
@@ -286,34 +286,82 @@ class Magneto_Debug_IndexController extends Mage_Core_Controller_Front_Action
      */
     public function toggleModuleStatusAction()
     {
+        $modulesDefault = array(
+            'Mage_Admin',
+            'Mage_Adminhtml',
+            'Mage_AdminNotification',
+            'Mage_Backup',
+            'Mage_Catalog',
+            'Mage_CatalogIndex',
+            'Mage_CatalogInventory',
+            'Mage_CatalogRule',
+            'Mage_CatalogSearch',
+            'Mage_Checkout',
+            'Mage_Cms',
+            'Mage_Contacts',
+            'Mage_Core',
+            'Mage_Cron',
+            'Mage_Customer',
+            'Mage_Dataflow',
+            'Mage_Directory',
+            'Mage_Eav',
+            'Mage_GiftMessage',
+            'Mage_GoogleAnalytics',
+            'Mage_GoogleCheckout',
+            'Mage_Index',
+            'Mage_Install',
+            'Mage_Log',
+            'Mage_Media',
+            'Mage_Newsletter',
+            'Mage_Page',
+            'Mage_Paygate',
+            'Mage_Payment',
+            'Mage_Paypal',
+            'Mage_PaypalUk',
+            'Mage_Poll',
+            'Mage_ProductAlert',
+            'Mage_Rating',
+            'Mage_Reports',
+            'Mage_Review',
+            'Mage_Rss',
+            'Mage_Rule',
+            'Mage_Sales',
+            'Mage_SalesRule',
+            'Mage_Sendfriend',
+            'Mage_Shipping',
+            'Mage_Sitemap',
+            'Mage_Tag',
+            'Mage_Tax',
+            'Mage_Usa',
+            'Mage_Wishlist',
+        );
         $title = "Toggle Module Status";
         $moduleName = $this->getRequest()->getParam('module');
-        if ( ! $moduleName) {
+        if (!$moduleName) {
             echo $this->_debugPanel($title, $this->__("Invalid module name supplied. "));
             return;
         }
         $config = Mage::getConfig();
 
         $moduleConfig = Mage::getConfig()->getModuleConfig($moduleName);
-        if ( ! $moduleConfig) {
+        if (!$moduleConfig) {
             echo $this->_debugPanel($title, $this->__("Unable to load supplied module. "));
             return;
         }
 
         $moduleCurrentStatus = $moduleConfig->is('active');
-        $moduleNewStatus = ! $moduleCurrentStatus;
+        $moduleNewStatus = (!$moduleCurrentStatus) ? 'true' : 'false';
+        $moduleCurrentStatus = $moduleCurrentStatus ? 'true' : 'false';
+        if (in_array($moduleName, $modulesDefault)) {
+            $moduleName = 'Mage_All';
+        }
         $moduleConfigFile = $config->getOptions()->getEtcDir() . DS . 'modules' . DS . $moduleName . '.xml';
         $configContent = file_get_contents($moduleConfigFile);
 
-        function strbool($value)
-        {
-            return $value ? 'true' : 'false';
-        }
-
-        $contents = '<br/>' . $this->__('Active status switched to ') . (string) $moduleNewStatus . $this->__(' for module ') . $moduleName . $this->__(' in file ') . $moduleConfigFile . ':';
+        $contents = '<br/>' . $this->__('Active status switched to ') . (string)$moduleNewStatus . $this->__(' for module ') . $moduleName . $this->__(' in file ') . $moduleConfigFile . ':';
         $contents .= '<br/><code>' . htmlspecialchars($configContent) . '</code>';
 
-        $configContent = str_replace('<active>' . (string) $moduleCurrentStatus . '</active>', '<active>' . (string) $moduleNewStatus . '</active>', $configContent);
+        $configContent = str_replace('<active>' . $moduleCurrentStatus . '</active>', '<active>' . $moduleNewStatus . '</active>', $configContent);
 
         if (file_put_contents($moduleConfigFile, $configContent) === FALSE) {
             echo $this->_debugPanel($title, $this->__("Failed to write configuration. (Web Server's permissions for ") . $moduleConfigFile . "?!)");
@@ -351,8 +399,9 @@ class Magneto_Debug_IndexController extends Mage_Core_Controller_Front_Action
         Magneto_Debug_Block_Config::xml2array($configs, $items);
 
         $content = '';
+        $count = 0;
         foreach ($items as $key => $value) {
-            $content .= "$key = $value\n";
+            $content .= str_pad(++$count, 4, 0, STR_PAD_LEFT) . " - $key = $value\n";
         }
 
         $this->getResponse()->setHeader('Content-type', 'text/plain', true);
@@ -372,7 +421,7 @@ class Magneto_Debug_IndexController extends Mage_Core_Controller_Front_Action
         $configContent = file_get_contents($localConfigFile);
         $xml = new SimpleXMLElement($configContent);
 
-        if ((int) $xml->global->resources->default_setup->connection->profiler != 1) {
+        if ((int)$xml->global->resources->default_setup->connection->profiler != 1) {
             $xml->global->resources->default_setup->connection->addChild('profiler', 1);
         } else {
             unset($xml->global->resources->default_setup->connection->profiler);
@@ -414,7 +463,7 @@ class Magneto_Debug_IndexController extends Mage_Core_Controller_Front_Action
 
             $items = array();
 
-            if ( ! empty($uri)) {
+            if (!empty($uri)) {
                 foreach ($groupTypes as $type) {
                     $items[$type]['class'] = Mage::getConfig()->getGroupedClassName($type, $uri);
                     $items[$type]['filepath'] = mageFindClassFile($items[$type]['class']);
@@ -442,7 +491,7 @@ class Magneto_Debug_IndexController extends Mage_Core_Controller_Front_Action
 
             $query = $this->getRequest()->getPost('query');
 
-            if ( ! empty($query)) {
+            if (!empty($query)) {
                 $configs = Mage::app()->getConfig()->getNode();
                 $configArray = array();
 
@@ -475,13 +524,13 @@ class Magneto_Debug_IndexController extends Mage_Core_Controller_Front_Action
     {
         $file = $this->getRequest()->getParam('file');
 
-        if ( ! empty($file)) {
+        if (!empty($file)) {
             // Accept only specific files
             if ($file == Mage::getStoreConfig('dev/log/file') || $file == Mage::getStoreConfig('dev/log/exception_file')) {
                 // TODO: Review this..
                 $result = Mage::helper('debug')->getLastRows(Mage::getBaseDir('var') . DS . 'log' . DS . $file, 10);
 
-                if ( ! is_array($result)) {
+                if (!is_array($result)) {
                     $result = array($result);
                 }
 
@@ -506,7 +555,7 @@ class Magneto_Debug_IndexController extends Mage_Core_Controller_Front_Action
             $currentStatus = Mage::getStoreConfig($configPath);
 
             $config = Mage::getModel('core/config');
-            $config->saveConfig($configPath,  ! $currentStatus, 'stores', $forStore);
+            $config->saveConfig($configPath, !$currentStatus, 'stores', $forStore);
             Mage::getModel('core/cache')->flush();
 
             $this->_redirectReferer();

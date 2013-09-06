@@ -13,7 +13,8 @@
         };
         document.getElementsByTagName('head')[0].appendChild(script)
     }
-})(window, document, "1.3", function($, jquery_loaded) {
+})
+(window, document, "1.3", function($, jquery_loaded) {
 
     $.cookie = function(name, value, options) {
         if (typeof value != 'undefined') {

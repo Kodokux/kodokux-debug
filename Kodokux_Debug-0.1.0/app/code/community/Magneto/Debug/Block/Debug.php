@@ -181,17 +181,17 @@ class Magneto_Debug_Block_Debug extends Magneto_Debug_Block_Abstract
         return $panel;
     }
 
-    protected function createPreferencesPanel()
+    protected function createTranslatePanel()
     {
-        $title = 'Preferences';
+        $title = 'Translate';
         $panel = array(
             'title' => $title,
             'has_content' => true,
             'url' => NULL,
             'dom_id' => 'debug-panel-' . $title,
             'nav_title' => $title,
-            'nav_subtitle' => $this->__("Customize Magneto Debug"),
-            'template' => 'debug_preferences_panel', // child block defined in layout xml
+            'nav_subtitle' => $this->__("Translate"),
+            'template' => 'debug_translate_panel',
         );
         return $panel;
     }
@@ -207,9 +207,8 @@ class Magneto_Debug_Block_Debug extends Magneto_Debug_Block_Abstract
         $panels[] = $this->createLayoutPanel();
         $panels[] = $this->createBlocksPanel();
         $panels[] = $this->createUtilsPanel();
+        $panels[] = $this->createTranslatePanel();
         $panels[] = $this->createLogsPanel();
-        // TODO: Implement preferences panel (toggle panels visibility from toolbar)
-//        $panels[] = $this->createPreferencesPanel();
 
         return $panels;
     }

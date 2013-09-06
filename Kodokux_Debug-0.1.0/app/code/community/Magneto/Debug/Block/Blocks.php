@@ -22,17 +22,17 @@ class Magneto_Debug_Block_Blocks extends Magneto_Debug_Block_Abstract
     public function getViewBlockUrl($blockClass)
     {
         return Mage::getUrl('debug/index/viewBlock', array(
-                'block' => $blockClass,
-                '_store' => self::DEFAULT_STORE_ID,
-                '_nosid' => true));
+            'block' => $blockClass,
+            '_store' => self::DEFAULT_STORE_ID,
+            '_nosid' => true));
     }
 
     public function getViewTemplateUrl($template)
     {
         return Mage::getUrl('debug/index/viewTemplate', array(
-                '_query' => array('template' => $template),
-                '_store' => self::DEFAULT_STORE_ID,
-                '_nosid' => true));
+            '_query' => array('template' => $template),
+            '_store' => self::DEFAULT_STORE_ID,
+            '_nosid' => true));
     }
 
     public function getRenderingTime($block)
