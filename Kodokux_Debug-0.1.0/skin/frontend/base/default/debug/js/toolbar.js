@@ -187,6 +187,55 @@
             });
             // end-translate
 
+
+            // Integration WebSocket
+            var setup = function () {
+
+                var originalImage = $('#djShowToolBarButton').css('background-image');
+
+                socket = new WebSocket('ws://localhost:12032');
+
+                socket.onopen = function (e) {
+                    console.log('Connected');
+                    $('#djShowToolBarButton').css('background-image', originalImage.replace('djdt_vertical', 'djdt_vertical2'));
+                };
+
+                socket.onclose = function (e) {
+                    console.log('Disconnected');
+                    $('#djShowToolBarButton').css('background-image', originalImage);
+                };
+
+                socket.onerror = function (error) {
+                    console.log('WebSocket Error ' + error);
+                    $('#djShowToolBarButton').css('background-image', originalImage);
+                };
+
+                socket.onmessage = function (e) {
+                    console.log('Message received: ' + e.data);
+//                    socket.close();
+                };
+            };
+
+            var send = function (msg) {
+                socket.send(msg);
+                console.log('Message sent: ' + msg);
+            };
+
+            setup();
+
+            $("div[onmouseover*='this.style.zIndex']").click(function (e) {
+                var content = $(this).html();
+                if (content.indexOf('/') == '-1') {
+                    alert(content)
+                } else {
+                    send('open:app/design/' + content);
+                }
+//                e.preventDefault();
+//                send('open:app/code/core/Mage/Cms/controllers/IndexController.php');
+            });
+
+            // End Integration WebSocket
+
         },
         toggle_content: function(elem) {
             if (elem.is(':visible')) {
