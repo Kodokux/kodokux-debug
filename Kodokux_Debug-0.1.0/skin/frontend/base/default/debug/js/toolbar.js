@@ -189,11 +189,10 @@
 
 
             // Integration WebSocket
-
+            var kodokuxUrl = $('#kodokux-url').val();
             var originalImage = $('#djShowToolBarButton').css('background-image');
-            var basePatch = originalImage.replace('url("', '').replace('skin/frontend/base/default/debug/img/djdt_vertical.png")', '');
-            var imageClick = '<img class="kodokux-open kodokux-image" style="background-color: #ffffff; cursor: pointer; margin-left: 2px;" src="' + basePatch + 'skin/frontend/base/default/debug/img/click.png">';
-            var imageClickController = '<img class="kodokux-controller kodokux-image" style="background-color: #ffffff; cursor: pointer; margin-left: 2px;" src="' + basePatch + 'skin/frontend/base/default/debug/img/click.png">';
+            var imageClick = '<img class="kodokux-open kodokux-image" style="background-color: #ffffff; cursor: pointer; margin-left: 2px;" src="' + kodokuxUrl + 'skin/frontend/base/default/debug/img/click.png">';
+            var imageClickController = '<img class="kodokux-controller kodokux-image" style="background-color: #ffffff; cursor: pointer; margin-left: 2px;" src="' + kodokuxUrl + 'skin/frontend/base/default/debug/img/click.png">';
 
             var addImageOnHint = function () {
                 $("div[onmouseover*='this.style.zIndex']").append(imageClick);
