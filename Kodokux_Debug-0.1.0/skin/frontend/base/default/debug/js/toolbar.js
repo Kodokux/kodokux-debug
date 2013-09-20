@@ -189,15 +189,28 @@
 
 
             // Integration WebSocket
-            var setup = function () {
 
-                var originalImage = $('#djShowToolBarButton').css('background-image');
+            var originalImage = $('#djShowToolBarButton').css('background-image');
+            var basePatch = originalImage.replace('url("', '').replace('skin/frontend/base/default/debug/img/djdt_vertical.png")', '');
+            var imageClick = '<img class="kodokux-open kodokux-image" style="background-color: #ffffff; cursor: pointer; margin-left: 2px;" src="' + basePatch + 'skin/frontend/base/default/debug/img/click.png">';
+            var imageClickController = '<img class="kodokux-controller kodokux-image" style="background-color: #ffffff; cursor: pointer; margin-left: 2px;" src="' + basePatch + 'skin/frontend/base/default/debug/img/click.png">';
+
+            var addImageOnHint = function () {
+                $("div[onmouseover*='this.style.zIndex']").append(imageClick);
+            };
+            var addImageController = function () {
+                $("#debug-panel-Controller > div.djDebugPanelTitle h3").append(imageClickController);
+            };
+
+            var setup = function () {
 
                 socket = new WebSocket('ws://localhost:12032');
 
                 socket.onopen = function (e) {
                     console.log('Connected');
                     $('#djShowToolBarButton').css('background-image', originalImage.replace('djdt_vertical', 'djdt_vertical2'));
+                    addImageOnHint();
+                    addImageController();
                 };
 
                 socket.onclose = function (e) {
@@ -221,17 +234,34 @@
                 console.log('Message sent: ' + msg);
             };
 
+            /**
+             *  Retorna o controle e action da página atual
+             *
+             * @returns {string}
+             */
+            var getControllerAction = function () {
+                var controller = ($("#debug-panel-Controller div.djDebugPanelContent tbody tr:nth-child(2) td:nth-child(2)").html());
+                var view = ($("#debug-panel-Controller div.djDebugPanelContent tbody tr:nth-child(3) td:nth-child(2)").html());
+                var arr = controller.split(' / ');
+                var letra = arr[1].charAt(0).toUpperCase();
+                controller = arr[0] + '_Controller_' + letra + arr[1].substr(1);
+                return controller + '::' + view + 'Action';
+            };
+
             setup();
 
-            $("div[onmouseover*='this.style.zIndex']").click(function (e) {
-                var content = $(this).html();
+            $(".kodokux-open").live('click', function (e) {
+                var content = $(this).parent().html().replace(imageClick, '');
+
                 if (content.indexOf('/') == '-1') {
-                    alert(content)
+                    send('class:' + content)
                 } else {
                     send('open:app/design/' + content);
                 }
-//                e.preventDefault();
-//                send('open:app/code/core/Mage/Cms/controllers/IndexController.php');
+            });
+
+            $(".kodokux-controller").live('click', function (e) {
+                send('class:' + getControllerAction())
             });
 
             // End Integration WebSocket
