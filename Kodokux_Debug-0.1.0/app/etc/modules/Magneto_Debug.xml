@@ -2,7 +2,7 @@
 <config>
     <modules>
         <Magneto_Debug>
-            <active>true</active>
+            <active>false</active>
             <codePool>community</codePool>
         </Magneto_Debug>
     </modules>
