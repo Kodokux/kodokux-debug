@@ -190,6 +190,7 @@
 
             // Integration WebSocket
             var kodokuxUrl = $('#kodokux-url').val();
+            kodokuxUrl = kodokuxUrl.replace('index.php/', '');
             var originalImage = $('#djShowToolBarButton').css('background-image');
             var imageClick = '<img class="kodokux-open kodokux-image" style="background-color: #ffffff; cursor: pointer; margin-left: 2px;" src="' + kodokuxUrl + 'skin/frontend/base/default/debug/img/click.png">';
             var imageClickController = '<img class="kodokux-controller kodokux-image" style="background-color: #ffffff; cursor: pointer; margin-left: 2px;" src="' + kodokuxUrl + 'skin/frontend/base/default/debug/img/click.png">';
