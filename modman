@@ -1,15 +1,15 @@
-Kodokux_Debug-0.1.0/app/code/community/Magneto/Debug                        app/code/community/Magneto/Debug
+app/code/community/Magneto/Debug                        app/code/community/Magneto/Debug
 
-Kodokux_Debug-0.1.0/app/design/adminhtml/base/default/layout/debug.xml      app/design/adminhtml/base/default/layout/debug.xml
-Kodokux_Debug-0.1.0/app/design/adminhtml/base/default/template/debug        app/design/adminhtml/base/default/template/debug
+app/design/adminhtml/base/default/layout/debug.xml      app/design/adminhtml/base/default/layout/debug.xml
+app/design/adminhtml/base/default/template/debug        app/design/adminhtml/base/default/template/debug
 
-Kodokux_Debug-0.1.0/app/design/frontend/base/default/layout/debug.xml       app/design/frontend/base/default/layout/debug.xml
-Kodokux_Debug-0.1.0/app/design/frontend/base/default/template/debug         app/design/frontend/base/default/template/debug
+app/design/frontend/base/default/layout/debug.xml       app/design/frontend/base/default/layout/debug.xml
+app/design/frontend/base/default/template/debug         app/design/frontend/base/default/template/debug
 
-Kodokux_Debug-0.1.0/app/etc/modules/Magneto_Debug.xml                       app/etc/modules/Magneto_Debug.xml
+app/etc/modules/Magneto_Debug.xml                       app/etc/modules/Magneto_Debug.xml
 
-Kodokux_Debug-0.1.0/app/locale/pt_BR/Magneto_Debug.csv                      app/locale/pt_BR/Magneto_Debug.csv
+app/locale/pt_BR/Magneto_Debug.csv                      app/locale/pt_BR/Magneto_Debug.csv
 
-Kodokux_Debug-0.1.0/skin/frontend/base/default/debug                        skin/frontend/base/default/debug
+skin/frontend/base/default/debug                        skin/frontend/base/default/debug
 
 Kodokux_Debug.xml                                                           var/connect/Kodokux_Debug.xml
