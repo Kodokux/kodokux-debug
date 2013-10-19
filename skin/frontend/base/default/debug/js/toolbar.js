@@ -202,36 +202,39 @@
                 $("#debug-panel-Controller > div.djDebugPanelTitle h3").append(imageClickController);
             };
 
+            var Sock = null;
+
             var setup = function () {
 
-                socket = new WebSocket('ws://localhost:12032');
+                var socket = new WebSocket('ws://localhost:12032');
 
                 socket.onopen = function (e) {
-                    console.log('Connected');
+//                    console.log('Connected');
                     $('#djShowToolBarButton').css('background-image', originalImage.replace('djdt_vertical', 'djdt_vertical2'));
                     addImageOnHint();
                     addImageController();
+                    Sock = socket;
                 };
 
                 socket.onclose = function (e) {
-                    console.log('Disconnected');
+//                    console.log('Disconnected');
                     $('#djShowToolBarButton').css('background-image', originalImage);
                 };
 
                 socket.onerror = function (error) {
-                    console.log('WebSocket Error ' + error);
+//                    console.log('WebSocket Error ' + error);
                     $('#djShowToolBarButton').css('background-image', originalImage);
                 };
 
                 socket.onmessage = function (e) {
-                    console.log('Message received: ' + e.data);
+//                    console.log('Message received: ' + e.data);
 //                    socket.close();
                 };
             };
 
             var send = function (msg) {
-                socket.send(msg);
-                console.log('Message sent: ' + msg);
+                Sock.send(msg);
+//                console.log('Message sent: ' + msg);
             };
 
             /**
@@ -263,6 +266,14 @@
             $(".kodokux-controller").live('click', function (e) {
                 send('class:' + getControllerAction())
             });
+
+
+            setInterval(function () {
+                if (Sock.readyState === 1) {
+                    send('wake');
+//                    console.log('wake');
+                }
+            }, 30000);
 
             // End Integration WebSocket
 
